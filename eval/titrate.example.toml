@@ -1,0 +1,33 @@
+# Example provider configuration for titrate-eval. Copy to titrate.toml and edit.
+# Keys are read from the environment variable named in api_key_env; never commit keys.
+# Any OpenAI-compatible endpoint works (hosted API, a gateway, or a local server).
+
+[judge]
+base_url = "https://api.example.com/v1"
+model = "your-primary-judge-model"
+api_key_env = "JUDGE_API_KEY"
+timeout = 180
+
+# Optional second judge for the fixed 20% audit sample. Use a different model family.
+[audit_judge]
+base_url = "https://api.another-provider.example/v1"
+model = "your-audit-judge-model"
+api_key_env = "AUDIT_API_KEY"
+
+# Used by `--system dense`.
+[embedding]
+base_url = "https://api.example.com/v1"
+model = "your-embedding-model"
+api_key_env = "EMBED_API_KEY"
+
+# Used by `--system openviking` (pip install 'titrate_eval[openviking]').
+[openviking]
+url = "http://localhost:PORT"   # your OpenViking server
+root_uri = "viking://resources/titrate"
+max_tokens = 1600
+
+# Used by `--system mem0` (pip install 'titrate_eval[mem0]').
+# config_path points to a JSON/TOML file accepted by mem0's Memory.from_config.
+[mem0]
+config_path = "mem0-config.json"
+user_id = "titrate-user"

@@ -1,0 +1,12 @@
+# Fictional example. Your agent builds this from your own projects.
+projects:
+  - slug: widget-detector
+    name: Widget Detector
+    aliases: [WD, widget det]
+    repo: ~/code/widget-detector
+    status: active
+  - slug: orbit-planner
+    name: Orbit Planner
+    aliases: [OP]
+    repo: ~/code/orbit-planner
+    status: archived   # archived: no auto-recall, still readable on request

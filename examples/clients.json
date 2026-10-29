@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "timeout_seconds": 7,
+  "profiles": {
+    "assistant": {"budget": 1200, "limit": 5, "levels": "l0+l1", "min_score": 0.36,
+                  "scope_mode": "all", "trigger": "every_prompt"},
+    "coding":    {"budget": 600,  "limit": 2, "levels": "l0",    "min_score": 0.44,
+                  "scope_mode": "project_strict",
+                  "global_types": ["preference", "pitfall", "convention"],
+                  "trigger": "session_start_and_topic_shift",
+                  "explicit_patterns": ["as usual", "last time", "remember", "previously"]}
+  }
+}

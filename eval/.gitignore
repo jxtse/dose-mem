@@ -1,0 +1,8 @@
+.venv/
+.uv-cache/
+.tmp/
+__pycache__/
+.pytest_cache/
+*.egg-info/
+# Evaluation outputs contain your private memory and conversations.
+runs/
