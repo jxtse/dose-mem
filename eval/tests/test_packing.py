@@ -3,7 +3,7 @@ from __future__ import annotations
 import pytest
 
 from conftest import item
-from titrate_eval.packing import (DEFAULT_BUDGETS, RANKING_BYTES, budget_items, cap_utf8, injected_bytes,
+from dosemem_eval.packing import (DEFAULT_BUDGETS, RANKING_BYTES, budget_items, cap_utf8, injected_bytes,
                                   parse_budgets, visible, visible_item_id)
 
 

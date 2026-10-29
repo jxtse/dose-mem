@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from titrate_eval.cli import main
-from titrate_eval.data import load_probes
-from titrate_eval.mining import epoch_for, mine
+from dosemem_eval.cli import main
+from dosemem_eval.data import load_probes
+from dosemem_eval.mining import epoch_for, mine
 
 
 def test_epoch_is_latest_snapshot_not_after_the_turn() -> None:

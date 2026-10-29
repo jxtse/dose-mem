@@ -1,4 +1,4 @@
-"""Blind, span-anchored judge protocol (``titrate-blind-span-v3``).
+"""Blind, span-anchored judge protocol (``dosemem-blind-span-v3``).
 
 This module is pure: it builds requests and validates responses, and makes no
 network call (see ``judge_runner`` for transport). The judge sees only a
@@ -27,7 +27,7 @@ from typing import Any, Mapping, Sequence
 
 LABELS = frozenset({"necessary", "helpful", "irrelevant", "harmful"})
 USEFUL_LABELS = frozenset({"necessary", "helpful"})
-PROTOCOL_VERSION = "titrate-blind-span-v3"
+PROTOCOL_VERSION = "dosemem-blind-span-v3"
 STAGES = ("canonical", "audit", "supplementary")
 MAX_PACKET_BYTES = 500_000
 MAX_CANDIDATES = 100

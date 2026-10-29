@@ -10,7 +10,7 @@ import sys
 
 import pytest
 
-from titrate_eval.cli import main
+from dosemem_eval.cli import main
 
 
 @pytest.fixture
@@ -61,7 +61,7 @@ def test_full_pipeline_offline(example_dir, tmp_path, no_network, capsys) -> Non
 
 def test_cli_entry_point_runs_all_in_a_subprocess(example_dir, tmp_path) -> None:
     env = {**os.environ, "NO_PROXY": "*"}
-    result = subprocess.run([sys.executable, "-m", "titrate_eval.cli", "all",
+    result = subprocess.run([sys.executable, "-m", "dosemem_eval.cli", "all",
                              "--probes", str(example_dir / "probes.jsonl"),
                              "--snapshots", str(example_dir / "snapshots"), "--run", str(tmp_path / "r"),
                              "--system", "bm25", "--system", "dense-fake", "--fake", "--audit",

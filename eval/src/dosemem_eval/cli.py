@@ -1,17 +1,17 @@
-"""``titrate-eval`` command line.
+"""``dosemem-eval`` command line.
 
-    titrate-eval mine      --sessions S --snapshots DIR --test-from DATE --out P
-    titrate-eval retrieve  --probes P --snapshots DIR --run RUN --system bm25 [--system dense ...]
-    titrate-eval pool      --probes P --run RUN
-    titrate-eval judge     --probes P --run RUN --stage canonical|audit|supplementary [--fake]
-    titrate-eval calibrate --probes P --run RUN
-    titrate-eval score     --probes P --run RUN
-    titrate-eval report    --probes P --run RUN
-    titrate-eval all       ... (every stage in order; handy for the offline example)
+    dosemem-eval mine      --sessions S --snapshots DIR --test-from DATE --out P
+    dosemem-eval retrieve  --probes P --snapshots DIR --run RUN --system bm25 [--system dense ...]
+    dosemem-eval pool      --probes P --run RUN
+    dosemem-eval judge     --probes P --run RUN --stage canonical|audit|supplementary [--fake]
+    dosemem-eval calibrate --probes P --run RUN
+    dosemem-eval score     --probes P --run RUN
+    dosemem-eval report    --probes P --run RUN
+    dosemem-eval all       ... (every stage in order; handy for the offline example)
 
 Provider settings (judge, audit judge, embeddings, OpenViking, mem0) come from
-``--config titrate.toml`` and/or ``TITRATE_*`` environment variables; see
-``titrate_eval.providers``.
+``--config dosemem.toml`` and/or ``DOSEMEM_*`` environment variables; see
+``dosemem_eval.providers``.
 """
 
 from __future__ import annotations
@@ -48,11 +48,11 @@ def _judge_args(parser: argparse.ArgumentParser) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="titrate-eval", description="Blind, equal-budget memory-layer evaluation.")
+    parser = argparse.ArgumentParser(prog="dosemem-eval", description="Blind, equal-budget memory-layer evaluation.")
     sub = parser.add_subparsers(dest="command", required=True)
 
     p = sub.add_parser("mine", help="turn normalized session logs into probes JSONL")
-    p.add_argument("--sessions", required=True, type=Path, help="normalized sessions JSONL (see titrate_eval.mining)")
+    p.add_argument("--sessions", required=True, type=Path, help="normalized sessions JSONL (see dosemem_eval.mining)")
     p.add_argument("--snapshots", required=True, type=Path, help="snapshot directory (epoch ids)")
     p.add_argument("--test-from", required=True, help="ISO date: sessions starting on/after it are test")
     p.add_argument("--out", required=True, type=Path)

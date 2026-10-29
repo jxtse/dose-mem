@@ -4,7 +4,7 @@ Values come from a TOML config file (``--config``) and/or environment
 variables; environment variables win. Nothing is hard-coded: there is no
 default endpoint, and every network client refuses to run without one.
 
-Example ``titrate.toml``::
+Example ``dosemem.toml``::
 
     [judge]
     base_url = "https://api.example.com/v1"
@@ -21,8 +21,8 @@ Example ``titrate.toml``::
     model = "your-embedding-model"
     api_key_env = "EMBED_API_KEY"
 
-Environment overrides: ``TITRATE_<SECTION>_BASE_URL``, ``TITRATE_<SECTION>_MODEL``
-and ``TITRATE_<SECTION>_API_KEY`` (SECTION = JUDGE, AUDIT_JUDGE, EMBEDDING).
+Environment overrides: ``DOSEMEM_<SECTION>_BASE_URL``, ``DOSEMEM_<SECTION>_MODEL``
+and ``DOSEMEM_<SECTION>_API_KEY`` (SECTION = JUDGE, AUDIT_JUDGE, EMBEDDING).
 """
 
 from __future__ import annotations
@@ -58,7 +58,7 @@ def load_config(path: str | Path | None) -> dict[str, Any]:
 
 def endpoint(section: str, config: Mapping[str, Any] | None = None) -> Endpoint:
     values = dict((config or {}).get(section, {}))
-    prefix = "TITRATE_" + section.upper() + "_"
+    prefix = "DOSEMEM_" + section.upper() + "_"
     base_url = os.environ.get(prefix + "BASE_URL") or values.get("base_url")
     model = os.environ.get(prefix + "MODEL") or values.get("model")
     key_env = values.get("api_key_env")

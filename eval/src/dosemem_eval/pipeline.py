@@ -79,7 +79,7 @@ def retrieve(probes: Sequence[Probe], corpus: Corpus, system: MemorySystem, run:
 def build_pools(probes: Sequence[Probe], run: Path, *, extra_bm25: int = EXTRA_BM25_DEFAULT) -> dict[str, Any]:
     systems = retrieval_systems(run)
     if not systems:
-        raise RuntimeError("no retrieval outputs; run `titrate-eval retrieve` first")
+        raise RuntimeError("no retrieval outputs; run `dosemem-eval retrieve` first")
     records = {system: load_retrieval(run, system) for system in systems}
     pools: dict[str, list[dict[str, Any]]] = {}
     for probe in probes:

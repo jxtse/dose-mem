@@ -5,9 +5,9 @@ import json
 import pytest
 
 from conftest import item, probe, response_for
-from titrate_eval.data import Corpus, Probe, SchemaError, load_probes
-from titrate_eval.judge_runner import acquire, load_judgment
-from titrate_eval.providers import TransportError, endpoint
+from dosemem_eval.data import Corpus, Probe, SchemaError, load_probes
+from dosemem_eval.judge_runner import acquire, load_judgment
+from dosemem_eval.providers import TransportError, endpoint
 
 
 def chat(content: str) -> dict:
@@ -49,7 +49,7 @@ def test_judge_retries_infrastructure_once_and_saves_raw_responses(tmp_path) -> 
         calls.append(payload)
         if len(calls) == 1:
             raise TransportError("http_503", 503, {"error": "busy"})
-        request = __import__("titrate_eval.judging", fromlist=["x"]).build_judge_request(probe(), [item()], model="m")
+        request = __import__("dosemem_eval.judging", fromlist=["x"]).build_judge_request(probe(), [item()], model="m")
         return 200, chat(json.dumps(response_for(request)))
 
     record = acquire(probe(), [item()], stage="canonical", directory=tmp_path, transport=transport, model="m",
@@ -84,7 +84,7 @@ def test_endpoint_config_from_env_and_file(monkeypatch) -> None:
     config = {"judge": {"base_url": "https://example.invalid/v1", "model": "m", "api_key_env": "JUDGE_KEY_FOR_TEST"}}
     target = endpoint("judge", config)
     assert target.api_key == "secret" and target.url("/chat/completions") == "https://example.invalid/v1/chat/completions"
-    monkeypatch.setenv("TITRATE_JUDGE_MODEL", "override")
+    monkeypatch.setenv("DOSEMEM_JUDGE_MODEL", "override")
     assert endpoint("judge", config).model == "override"
     with pytest.raises(RuntimeError, match="base_url and model"):
         endpoint("audit_judge", {})

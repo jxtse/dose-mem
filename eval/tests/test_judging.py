@@ -5,8 +5,8 @@ import json
 import pytest
 
 from conftest import item, judgment, probe, response_for
-from titrate_eval.fake_judge import fake_judge_answer
-from titrate_eval.judging import (PROTOCOL_VERSION, RUBRIC, JudgeValidationError, audit_agreement,
+from dosemem_eval.fake_judge import fake_judge_answer
+from dosemem_eval.judging import (PROTOCOL_VERSION, RUBRIC, JudgeValidationError, audit_agreement,
                                   build_judge_request, cohen_kappa, extract_response_text,
                                   select_audit_probe_ids, validate_judgment)
 

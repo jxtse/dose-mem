@@ -1,4 +1,4 @@
-"""titrate_eval: blind, equal-budget evaluation of agent memory layers.
+"""dosemem_eval: blind, equal-budget evaluation of agent memory layers.
 
 The kit replays real user turns (probes) against frozen time-ordered snapshots
 of a memory corpus, packs every system's ranked output into the same byte

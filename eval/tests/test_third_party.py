@@ -6,9 +6,9 @@ import builtins
 
 import pytest
 
-from titrate_eval.data import Corpus, Document
-from titrate_eval.systems.mem0 import NEVER_REMOVED, Mem0System, split_text
-from titrate_eval.systems.openviking import OpenVikingSystem
+from dosemem_eval.data import Corpus, Document
+from dosemem_eval.systems.mem0 import NEVER_REMOVED, Mem0System, split_text
+from dosemem_eval.systems.openviking import OpenVikingSystem
 
 
 def doc(identity: str, text: str, project: str = "global") -> Document:
@@ -37,8 +37,8 @@ class FakeVikingClient:
     def search_context(self, query, limit=10, options=None, **kwargs):
         assert "target_uri" not in kwargs  # mode=context rejects target_uri; scope is a filter
         self.searches.append({"query": query, "limit": limit, "options": options})
-        return {"entries": [{"uri": "viking://resources/titrate/2026-01-12/proj/notes/a", "text": "alpha v2", "score": 0.8},
-                            {"uri": "viking://resources/titrate/2026-01-12/global/x", "text": "", "abstract": "abs", "score": 0.5},
+        return {"entries": [{"uri": "viking://resources/dosemem/2026-01-12/proj/notes/a", "text": "alpha v2", "score": 0.8},
+                            {"uri": "viking://resources/dosemem/2026-01-12/global/x", "text": "", "abstract": "abs", "score": 0.5},
                             {"uri": "viking://empty", "text": "", "score": 0.1}],
                 "stats": {}}
 
@@ -47,8 +47,8 @@ def test_openviking_ingests_each_epoch_natively_under_its_own_root(tmp_path) -> 
     client = FakeVikingClient()
     system = OpenVikingSystem(client, workdir=tmp_path)
     system.prepare(corpus())
-    assert [call["to"] for call in client.added] == ["viking://resources/titrate/2026-01-05",
-                                                     "viking://resources/titrate/2026-01-12"]
+    assert [call["to"] for call in client.added] == ["viking://resources/dosemem/2026-01-05",
+                                                     "viking://resources/dosemem/2026-01-12"]
     assert client.added[0]["options"]["processing_mode"] == "semantic_and_vectors"
     assert client.added[0]["files"] == ["global/notes/g.md", "proj/notes/a.md"]
 
@@ -63,17 +63,17 @@ def test_openviking_queries_search_context_with_uri_scope_filter(tmp_path) -> No
     assert call["options"]["max_tokens"] == 900 and call["options"]["score_threshold"] == 0
     native_filter = call["options"]["filter"]
     assert native_filter["op"] == "or"
-    assert [c["conds"] for c in native_filter["conds"]] == [["viking://resources/titrate/2026-01-12/proj"],
-                                                            ["viking://resources/titrate/2026-01-12/global"]]
+    assert [c["conds"] for c in native_filter["conds"]] == [["viking://resources/dosemem/2026-01-12/proj"],
+                                                            ["viking://resources/dosemem/2026-01-12/global"]]
     assert [row["text"] for row in rows] == ["alpha v2", "abs"]
     assert all(row["item_id"].startswith("openviking:") for row in rows)
     system.retrieve({"user_turn": "q", "project_hint": None}, "2026-01-05")
     assert client.searches[-1]["options"]["filter"] == {"op": "must", "field": "uri", "para": "-d=-1",
-                                                        "conds": ["viking://resources/titrate/2026-01-05"]}
+                                                        "conds": ["viking://resources/dosemem/2026-01-05"]}
 
 
 def test_openviking_sdk_is_optional(monkeypatch) -> None:
-    from titrate_eval.systems import openviking
+    from dosemem_eval.systems import openviking
 
     real_import = builtins.__import__
 
@@ -83,7 +83,7 @@ def test_openviking_sdk_is_optional(monkeypatch) -> None:
         return real_import(name, *args, **kwargs)
 
     monkeypatch.setattr(builtins, "__import__", blocked)
-    with pytest.raises(RuntimeError, match=r"titrate_eval\[openviking\]"):
+    with pytest.raises(RuntimeError, match=r"dosemem_eval\[openviking\]"):
         openviking.make_client("http://example.invalid")
 
 

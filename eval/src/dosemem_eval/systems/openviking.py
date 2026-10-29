@@ -20,7 +20,7 @@ For OpenViking that means:
 
 Each epoch is written under its own root ``<root_uri>/<epoch>/<project>/...`` so
 a probe can only reach its own snapshot. Requires ``pip install
-'titrate_eval[openviking]'`` and a running OpenViking server you configured
+'dosemem_eval[openviking]'`` and a running OpenViking server you configured
 (embedding/VLM providers are OpenViking's own configuration, not ours).
 """
 
@@ -58,7 +58,7 @@ def make_client(url: str, api_key: str | None = None, timeout: float = 900.0, **
         try:
             from openviking import SyncHTTPClient  # full package re-exports it
         except ImportError as exc:
-            raise RuntimeError("OpenViking adapter needs: pip install 'titrate_eval[openviking]'") from exc
+            raise RuntimeError("OpenViking adapter needs: pip install 'dosemem_eval[openviking]'") from exc
     client = SyncHTTPClient(url=url, api_key=api_key, timeout=timeout, **kwargs)
     client.initialize()
     return client
@@ -67,7 +67,7 @@ def make_client(url: str, api_key: str | None = None, timeout: float = 900.0, **
 class OpenVikingSystem:
     name = "openviking"
 
-    def __init__(self, client: Any, *, root_uri: str = "viking://resources/titrate", max_tokens: int = 1600,
+    def __init__(self, client: Any, *, root_uri: str = "viking://resources/dosemem", max_tokens: int = 1600,
                  workdir: str | Path | None = None, wait: bool = True):
         self.client = client
         self.root_uri = root_uri.rstrip("/")
