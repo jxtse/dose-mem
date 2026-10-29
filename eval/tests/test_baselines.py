@@ -6,9 +6,9 @@ import sys
 
 import pytest
 
-from dosemem_eval.data import Corpus, Document
-from dosemem_eval.systems.baselines import BM25Index, BM25System, DenseIndex, DenseSystem, chunks, tokens
-from dosemem_eval.systems.embedders import HashEmbedder, OpenAICompatibleEmbedder
+from dose_mem_eval.data import Corpus, Document
+from dose_mem_eval.systems.baselines import BM25Index, BM25System, DenseIndex, DenseSystem, chunks, tokens
+from dose_mem_eval.systems.embedders import HashEmbedder, OpenAICompatibleEmbedder
 
 
 def item(identity: str, text: str, project: str = "global") -> dict:
@@ -52,7 +52,7 @@ def test_chunks_preserve_heading_provenance_unicode_and_identity() -> None:
 
 
 def test_chunk_long_multibyte_heading_terminates_and_respects_budget() -> None:
-    code = ("from dosemem_eval.systems.baselines import chunks; from dosemem_eval.data import Document; "
+    code = ("from dose_mem_eval.systems.baselines import chunks; from dose_mem_eval.data import Document; "
             "d=Document.from_dict({'id':'x','path':'x','text':'# '+chr(128512)*160+'\\n'+'a'*500}); "
             "rows=chunks([d],max_bytes=128); assert rows; assert all(len(r['text'].encode())<=128 for r in rows)")
     result = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, timeout=10)
@@ -101,7 +101,7 @@ def test_hash_embedder_is_deterministic_and_normalized() -> None:
 
 
 def test_openai_compatible_embedder_uses_wire_format(monkeypatch) -> None:
-    from dosemem_eval import providers
+    from dose_mem_eval import providers
 
     sent = []
 
@@ -109,7 +109,7 @@ def test_openai_compatible_embedder_uses_wire_format(monkeypatch) -> None:
         sent.append((path, payload))
         return 200, {"data": [{"index": i, "embedding": [float(i), 1.0]} for i in reversed(range(len(payload["input"])))]}
 
-    monkeypatch.setattr("dosemem_eval.systems.embedders.post_json", fake_post)
+    monkeypatch.setattr("dose_mem_eval.systems.embedders.post_json", fake_post)
     embedder = OpenAICompatibleEmbedder(providers.Endpoint(base_url="https://example.invalid/v1", model="m"),
                                         batch_size=2)
     vectors = embedder.embed(["a", "b", "c"])

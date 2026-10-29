@@ -1,4 +1,4 @@
-# Example provider configuration for dosemem-eval. Copy to dosemem.toml and edit.
+# Example provider configuration for dose-mem-eval. Copy to dose-mem.toml and edit.
 # Keys are read from the environment variable named in api_key_env; never commit keys.
 # Any OpenAI-compatible endpoint works (hosted API, a gateway, or a local server).
 
@@ -20,14 +20,14 @@ base_url = "https://api.example.com/v1"
 model = "your-embedding-model"
 api_key_env = "EMBED_API_KEY"
 
-# Used by `--system openviking` (pip install 'dosemem_eval[openviking]').
+# Used by `--system openviking` (pip install 'dose_mem_eval[openviking]').
 [openviking]
 url = "http://localhost:PORT"   # your OpenViking server
-root_uri = "viking://resources/dosemem"
+root_uri = "viking://resources/dose-mem"
 max_tokens = 1600
 
-# Used by `--system mem0` (pip install 'dosemem_eval[mem0]').
+# Used by `--system mem0` (pip install 'dose_mem_eval[mem0]').
 # config_path points to a JSON/TOML file accepted by mem0's Memory.from_config.
 [mem0]
 config_path = "mem0-config.json"
-user_id = "dosemem-user"
+user_id = "dose-mem-user"

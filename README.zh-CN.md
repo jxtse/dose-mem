@@ -1,10 +1,10 @@
-# DoseMem
+# dose-mem
 
 **一份 Markdown 记忆，多个 agent，每个拿到合适的剂量。**
 
 名字就是核心想法：agent 记忆的难点不是找到更多，而是给对剂量。
 
-DoseMem 是一个开放的记忆层设计，供你所有的 AI agent 共用：跨天聊天的个人助手、
+dose-mem 是一个开放的记忆层设计，供你所有的 AI agent 共用：跨天聊天的个人助手、
 在单个仓库里干活的 coding agent，以及你之后接入的任何 agent。它以**搭建说明**
 （build spec）的形式发布。你把说明交给自己的 coding agent，由它在你的机器上，
 按你的文件夹、模型服务和 agent 搭出这套系统。
@@ -46,7 +46,7 @@ DoseMem 是一个开放的记忆层设计，供你所有的 AI agent 共用：�
 
 **把这段交给你的 coding agent**（Claude Code、Codex 等）：
 
-> Clone https://github.com/jxtse/dosemem。先读 `README.md`，再读 `specs/01-memory-service.md`。
+> Clone https://github.com/jxtse/dose-mem。先读 `README.md`，再读 `specs/01-memory-service.md`。
 > 按说明先就我的环境问我问题，然后为我的 agent 搭建记忆服务。通过说明里的验收标准后，
 > 再按 `specs/02-write-path.md` 搭写入链路。
 

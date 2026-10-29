@@ -1,10 +1,10 @@
-# DoseMem
+# dose-mem
 
 **One Markdown memory, many agents, the right dose for each.**
 
 The name says the idea: the hard part of agent memory is not finding more, it is dosing it.
 
-DoseMem is an open design for a memory layer shared by all your AI agents: a personal
+dose-mem is an open design for a memory layer shared by all your AI agents: a personal
 assistant that chats across days, coding agents working inside one repository, and
 whatever agent you add next. It is published as **build specs**. You hand them to your
 own coding agent, and it builds the system on your machine, with your folders, your model
@@ -54,7 +54,7 @@ block looks like.
 
 **Hand this to your coding agent** (Claude Code, Codex, or similar):
 
-> Clone https://github.com/jxtse/dosemem. Read `README.md`, then `specs/01-memory-service.md`.
+> Clone https://github.com/jxtse/dose-mem. Read `README.md`, then `specs/01-memory-service.md`.
 > Interview me about my environment as the spec asks, then build the memory service for my
 > agents. When it passes the spec's acceptance criteria, do the same for
 > `specs/02-write-path.md`.

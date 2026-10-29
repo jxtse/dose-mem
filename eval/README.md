@@ -1,4 +1,4 @@
-# dosemem eval kit
+# dose-mem eval kit
 
 Measure a memory layer for AI agents on **your own sessions**. The kit replays real
 user turns against time-ordered snapshots of your memory. Every system gets the same
@@ -19,7 +19,7 @@ endpoint for the dense baseline, and the third-party systems you choose to run.
 
 > Clone this repository. Read `eval/METHOD.md` and `eval/README.md`. Write a small
 > adapter that converts my agents' session logs into the normalized sessions format of
-> `dosemem_eval/mining.py`, and export weekly snapshots of my memory folder into the
+> `dose_mem_eval/mining.py`, and export weekly snapshots of my memory folder into the
 > snapshot format below. Then run the kit on my memory with `bm25` and `dense`, plus my
 > own memory service as a new adapter. Show me `summary.json` and let me check the
 > provider config before you make any paid API call.
@@ -29,7 +29,7 @@ endpoint for the dense baseline, and the third-party systems you choose to run.
 ```bash
 cd eval
 uv sync
-uv run dosemem-eval all \
+uv run dose-mem-eval all \
   --probes examples/tiny/probes.jsonl --snapshots examples/tiny/snapshots \
   --run runs/demo --system bm25 --system dense-fake --fake --audit
 ```
@@ -41,19 +41,19 @@ the pipeline works.
 Then run it on your data:
 
 ```bash
-cp dosemem.example.toml dosemem.toml          # set base_url / model / api_key_env
+cp dose-mem.example.toml dose-mem.toml          # set base_url / model / api_key_env
 export JUDGE_API_KEY=... EMBED_API_KEY=...
 
-uv run dosemem-eval mine      --sessions my-sessions.jsonl --snapshots my-snapshots \
+uv run dose-mem-eval mine      --sessions my-sessions.jsonl --snapshots my-snapshots \
                               --test-from 2026-02-01 --out runs/me/probes.jsonl
-P="--probes runs/me/probes.jsonl --run runs/me --config dosemem.toml"
-uv run dosemem-eval retrieve  $P --snapshots my-snapshots --system bm25 --system dense
-uv run dosemem-eval pool      $P
-uv run dosemem-eval judge     $P --stage canonical
-uv run dosemem-eval judge     $P --stage audit          # optional second judge, fixed 20%
-uv run dosemem-eval calibrate $P                        # one threshold per system, dev only
-uv run dosemem-eval score     $P
-uv run dosemem-eval report    $P
+P="--probes runs/me/probes.jsonl --run runs/me --config dose-mem.toml"
+uv run dose-mem-eval retrieve  $P --snapshots my-snapshots --system bm25 --system dense
+uv run dose-mem-eval pool      $P
+uv run dose-mem-eval judge     $P --stage canonical
+uv run dose-mem-eval judge     $P --stage audit          # optional second judge, fixed 20%
+uv run dose-mem-eval calibrate $P                        # one threshold per system, dev only
+uv run dose-mem-eval score     $P
+uv run dose-mem-eval report    $P
 ```
 
 `runs/` is git-ignored. Keep it that way: it holds your conversations.
@@ -99,7 +99,7 @@ uv run dosemem-eval report    $P
  "project": "widget-detector", "text": "# widget-detector: model notes\n...", "sha256": "<sha256 of text>"}
 ```
 
-**Normalized sessions** (input to `mine`): see the docstring of `dosemem_eval/mining.py`.
+**Normalized sessions** (input to `mine`): see the docstring of `dose_mem_eval/mining.py`.
 Converting your agents' log formats into it is deliberately left to a small adapter on
 your side.
 
@@ -117,7 +117,7 @@ Third-party SDKs are optional and imported lazily. No vendor code is copied into
 kit. You run and configure those systems yourself (servers, LLM and embedding providers).
 
 **To add your own memory service**, implement two methods and register it in
-`dosemem_eval/systems/__init__.py`:
+`dose_mem_eval/systems/__init__.py`:
 
 ```python
 class MySystem:
@@ -138,7 +138,7 @@ wrapping or metadata you return counts against your byte budget.
   1200 bytes, working 600 bytes. Override with `--budget assistant=1500`.
 - **Visible view.** Each item is capped at 480 UTF-8 bytes on a character boundary, then
   identified by the hash of that text.
-- **Blind judge** (protocol `dosemem-blind-span-v3`). The judge gets the rubric plus
+- **Blind judge** (protocol `dose-mem-blind-span-v3`). The judge gets the rubric plus
   conversation evidence, and candidates under shuffled aliases `C001...`. It never sees
   system names, scores or ranks. Each source is sent as `{span_id, text}` segments.
   Rationales must cite a span from the item itself, and `memory_needed` must cite a span

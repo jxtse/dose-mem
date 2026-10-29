@@ -33,10 +33,10 @@ def build_system(name: str, config: Mapping[str, Any] | None = None) -> MemorySy
         section = dict(config.get("openviking", {}))
         import os
 
-        url = os.environ.get("DOSEMEM_OPENVIKING_URL") or section.pop("url", None)
+        url = os.environ.get("DOSE_MEM_OPENVIKING_URL") or section.pop("url", None)
         if not url:
-            raise RuntimeError("[openviking] url (or DOSEMEM_OPENVIKING_URL) is required")
-        api_key = os.environ.get("DOSEMEM_OPENVIKING_API_KEY") or section.pop("api_key", None)
+            raise RuntimeError("[openviking] url (or DOSE_MEM_OPENVIKING_URL) is required")
+        api_key = os.environ.get("DOSE_MEM_OPENVIKING_API_KEY") or section.pop("api_key", None)
         options = {key: section.pop(key) for key in ("root_uri", "max_tokens") if key in section}
         return OpenVikingSystem(make_client(url, api_key=api_key, **section.get("client", {})), **options)
     if name == "mem0":
@@ -45,5 +45,5 @@ def build_system(name: str, config: Mapping[str, Any] | None = None) -> MemorySy
         section = config.get("mem0", {})
         if not section.get("config_path"):
             raise RuntimeError("[mem0] config_path (a mem0 Memory.from_config JSON/TOML file) is required")
-        return Mem0System(make_memory(section["config_path"]), user_id=section.get("user_id", "dosemem-user"))
+        return Mem0System(make_memory(section["config_path"]), user_id=section.get("user_id", "dose-mem-user"))
     raise ValueError(f"unknown system {name!r}; choose from {AVAILABLE}")

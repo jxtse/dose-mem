@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 from conftest import item, judgment, run
-from dosemem_eval.scoring import (clustered_ci, composite_score, freeze_threshold, metric_value,
+from dose_mem_eval.scoring import (clustered_ci, composite_score, freeze_threshold, metric_value,
                                   paired_difference, score_run, summarize, tune_threshold)
 
 

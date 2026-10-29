@@ -13,7 +13,7 @@ snapshot ``k`` searches with ``epoch_idx <= k < removed_idx`` plus the shared
 project scope ``project in [hint, "global"]``. Because ingestion is in time
 order, extraction at snapshot ``k`` never sees memories from later snapshots.
 
-Requires ``pip install 'dosemem_eval[mem0]'`` and a mem0 config (LLM, embedder,
+Requires ``pip install 'dose_mem_eval[mem0]'`` and a mem0 config (LLM, embedder,
 vector store) of your choice; the kit does not pick providers for you.
 """
 
@@ -58,7 +58,7 @@ def make_memory(config_path: str | Path) -> Any:
     try:
         from mem0 import Memory
     except ImportError as exc:
-        raise RuntimeError("mem0 adapter needs: pip install 'dosemem_eval[mem0]'") from exc
+        raise RuntimeError("mem0 adapter needs: pip install 'dose_mem_eval[mem0]'") from exc
     path = Path(config_path)
     if path.suffix == ".toml":
         import tomllib
@@ -72,7 +72,7 @@ def make_memory(config_path: str | Path) -> Any:
 class Mem0System:
     name = "mem0"
 
-    def __init__(self, memory: Any, *, user_id: str = "dosemem-user", retry_delay: float = 8.0):
+    def __init__(self, memory: Any, *, user_id: str = "dose-mem-user", retry_delay: float = 8.0):
         self.memory = memory
         self.user_id = user_id
         self.retry_delay = retry_delay

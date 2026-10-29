@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 from conftest import item
-from dosemem_eval.packing import visible, visible_item_id
-from dosemem_eval.pooling import judged_ids, merge_judgments, pool_candidates, unjudged_items
+from dose_mem_eval.packing import visible, visible_item_id
+from dose_mem_eval.pooling import judged_ids, merge_judgments, pool_candidates, unjudged_items
 
 
 def test_pool_is_union_of_visible_top10_deduplicated_and_anonymous() -> None:
