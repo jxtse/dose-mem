@@ -66,7 +66,7 @@ dose-mem 是一个开放的记忆层设计，供你所有的 AI agent 共用：�
 
 参考实现让 44% 的轮次拿到了有用记忆，mem0、向量检索和 BM25 是 29–32%；有害注入约为
 它们的一半。各系统的有用比例接近。细节、局限（只有一位用户、LLM 评委）以及没有奏效的
-做法见 [`eval/METHOD.md`](eval/METHOD.md) 和[博客文章](https://jxtse.github.io)。
+做法见 [`eval/METHOD.md`](eval/METHOD.md) 和[博客文章](https://jxtse.github.io/blog/one-memory-many-agents/)。
 
 ## 目录
 

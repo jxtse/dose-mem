@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use dose-mem or its evaluation method, please cite the accompanying blog post."
+title: "dose-mem"
+abstract: "One Markdown memory, many AI agents, the right dose for each: build specs for a shared memory layer and a real-life memory evaluation kit."
+authors:
+  - family-names: Xie
+    given-names: Jinxiang
+repository-code: "https://github.com/jxtse/dose-mem"
+url: "https://jxtse.github.io/blog/one-memory-many-agents/"
+license: MIT
+date-released: "2026-10-30"
+preferred-citation:
+  type: article
+  title: "One Memory, Many Agents: A Shared Memory Layer with Per-Agent Recall"
+  authors:
+    - family-names: Xie
+      given-names: Jinxiang
+  journal: "jxtse.github.io"
+  year: 2026
+  month: 10
+  url: "https://jxtse.github.io/blog/one-memory-many-agents/"

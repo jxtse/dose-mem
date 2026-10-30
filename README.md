@@ -79,7 +79,7 @@ The reference implementation got a useful memory into 44% of turns, against 29â€
 dense and BM25, with about half their harmful injections. Precision was similar for all
 systems. The details, the caveats (one user, LLM judges) and what did *not* work are in
 [`eval/METHOD.md`](eval/METHOD.md) and the
-[blog post](https://jxtse.github.io).
+[blog post](https://jxtse.github.io/blog/one-memory-many-agents/).
 
 ## Repository map
 
